@@ -7,7 +7,6 @@ export default defineConfig({
     path: "prisma/migrations",
   },
   datasource: {
-    // Prisma CLI needs HTTPS URL for Turso; runtime uses libsql:// via adapter
-    url: process.env["TURSO_MIGRATE_URL"]!,
+    url: process.env["TURSO_MIGRATE_URL"] || process.env["TURSO_DATABASE_URL"] || "file:./dev.db",
   },
 });
