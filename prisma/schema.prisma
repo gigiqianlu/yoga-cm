@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Studio {
+  id           String      @id @default(cuid())
+  name         String
+  slug         String      @unique
+  description  String?
+  location     String?
+  latitude     Float?
+  longitude    Float?
+  instagramUrl String?
+  facebookUrl  String?
+  websiteUrl   String?
+  logoUrl      String?
+  phone        String?
+  email        String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  classes      YogaClass[]
+}
+
+model YogaClass {
+  id              String   @id @default(cuid())
+  studioId        String
+  studio          Studio   @relation(fields: [studioId], references: [id], onDelete: Cascade)
+  title           String
+  style           String
+  instructor      String?
+  dayOfWeek       Int      // 0=Sunday .. 6=Saturday
+  startTime       String   // "09:00"
+  endTime         String?  // "10:30"
+  durationMin     Int?
+  priceTHB        Float?
+  dropInPriceTHB  Float?
+  locationDetail  String?
+  sourceUrl       String?
+  rawText         String?
+  isActive        Boolean  @default(true)
+  lastScrapedAt   DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([studioId])
+  @@index([dayOfWeek])
+  @@index([style])
+}
