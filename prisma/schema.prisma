@@ -7,22 +7,26 @@ datasource db {
 }
 
 model Studio {
-  id           String      @id @default(cuid())
-  name         String
-  slug         String      @unique
-  description  String?
-  location     String?
-  latitude     Float?
-  longitude    Float?
-  instagramUrl String?
-  facebookUrl  String?
-  websiteUrl   String?
-  logoUrl      String?
-  phone        String?
-  email        String?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  classes      YogaClass[]
+  id             String      @id @default(cuid())
+  name           String
+  slug           String      @unique
+  description    String?
+  location       String?
+  latitude       Float?
+  longitude      Float?
+  instagramUrl   String?
+  facebookUrl    String?
+  websiteUrl     String?
+  logoUrl        String?
+  phone          String?
+  email          String?
+  status         String      @default("live") // live, pending, rejected
+  scrapeMethod   String      @default("manual") // manual, scraper
+  lastVerifiedAt DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  classes        YogaClass[]
+  suggestions    Suggestion[]
 }
 
 model YogaClass {
@@ -41,6 +45,8 @@ model YogaClass {
   locationDetail  String?
   sourceUrl       String?
   rawText         String?
+  source          String   @default("manual") // manual, scraped, community
+  status          String   @default("live") // live, draft, pending_review
   isActive        Boolean  @default(true)
   lastScrapedAt   DateTime?
   createdAt       DateTime @default(now())
@@ -49,4 +55,22 @@ model YogaClass {
   @@index([studioId])
   @@index([dayOfWeek])
   @@index([style])
+  @@index([status])
+}
+
+model Suggestion {
+  id               String   @id @default(cuid())
+  type             String   // correction, new_studio, new_class
+  targetStudioId   String?
+  targetStudio     Studio?  @relation(fields: [targetStudioId], references: [id])
+  targetClassId    String?
+  data             String   // JSON blob with suggestion details
+  submitterContact String?
+  status           String   @default("pending") // pending, approved, rejected
+  adminNotes       String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([status])
+  @@index([type])
 }

@@ -64,6 +64,22 @@ export default function ClassCard({ cls }: { cls: ClassWithStudio }) {
             >
               📍 {cls.studio.name}
             </Link>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const data = prompt("What needs correcting? (time, instructor, class name, etc.)");
+                if (data) {
+                  fetch("/api/suggestions", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ type: "correction", targetClassId: cls.id, targetStudioId: cls.studio.id, data }),
+                  }).then(() => alert("Thanks! Your suggestion has been submitted."));
+                }
+              }}
+              className="text-[10px] text-stone-300 hover:text-amber-600 transition-colors"
+            >
+              ✏️ suggest edit
+            </button>
           </div>
         </div>
 

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
   const dayOfWeek = searchParams.get("dayOfWeek");
   const timeSlot = searchParams.get("timeSlot");
 
-  const where: Record<string, unknown> = { isActive: true };
+  const where: Record<string, unknown> = { isActive: true, status: "live" };
 
   if (style) where.style = style;
   if (studioId) where.studioId = studioId;

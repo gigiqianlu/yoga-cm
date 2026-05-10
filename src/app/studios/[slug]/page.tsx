@@ -25,7 +25,7 @@ export default async function StudioPage({ params }: Props) {
     where: { slug },
     include: {
       classes: {
-        where: { isActive: true },
+        where: { isActive: true, status: "live" },
         orderBy: [{ dayOfWeek: "asc" }, { startTime: "asc" }],
       },
     },
@@ -107,7 +107,19 @@ export default async function StudioPage({ params }: Props) {
         </div>
 
         {/* Schedule */}
-        <h2 className="text-lg font-bold text-stone-800 mb-4">Weekly Schedule</h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-bold text-stone-800">Weekly Schedule</h2>
+          {studio.lastVerifiedAt ? (
+            (() => {
+              const days = Math.floor((Date.now() - new Date(studio.lastVerifiedAt).getTime()) / 86400000);
+              if (days <= 7) return <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">✓ Verified {days === 0 ? "today" : `${days}d ago`}</span>;
+              if (days <= 14) return <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">⚠ Verified {days}d ago</span>;
+              return <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">⚠ May be outdated</span>;
+            })()
+          ) : (
+            <span className="text-xs bg-stone-100 text-stone-500 px-2 py-1 rounded-full">Unverified</span>
+          )}
+        </div>
 
         {studio.classes.length === 0 ? (
           <div className="text-center py-12">
