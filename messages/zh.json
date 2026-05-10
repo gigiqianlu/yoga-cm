@@ -1,0 +1,69 @@
+{
+  "common": {
+    "appName": "清迈瑜伽课程",
+    "loading": "加载中…",
+    "today": "今天",
+    "back": "← 返回所有课程",
+    "dropIn": "单次",
+    "with": "教练：{instructor}",
+    "min": "{minutes}分钟",
+    "website": "官网",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "home": {
+    "tagline": "在 {count} 家瑜伽馆中找到适合你的课程",
+    "findingClasses": "正在搜索课程…",
+    "noClassesTitle": "未找到课程",
+    "noClassesDescription": "请尝试调整筛选条件",
+    "clearFilters": "清除筛选",
+    "classesFound": "找到 {count} 节课程",
+    "footer": "课程时间可能有变动，请联系瑜伽馆确认"
+  },
+  "filters": {
+    "morning": "上午",
+    "afternoon": "下午",
+    "evening": "晚上",
+    "allStyles": "所有风格",
+    "allStudios": "所有瑜伽馆",
+    "filtersActive": "{count} 个筛选条件",
+    "clearAll": "清除全部"
+  },
+  "days": {
+    "sun": "周日",
+    "mon": "周一",
+    "tue": "周二",
+    "wed": "周三",
+    "thu": "周四",
+    "fri": "周五",
+    "sat": "周六",
+    "sunday": "星期日",
+    "monday": "星期一",
+    "tuesday": "星期二",
+    "wednesday": "星期三",
+    "thursday": "星期四",
+    "friday": "星期五",
+    "saturday": "星期六"
+  },
+  "studio": {
+    "weeklySchedule": "每周课程表",
+    "noClasses": "暂无课程",
+    "verified": "已验证",
+    "verifiedToday": "✓ 今天已验证",
+    "verifiedDaysAgo": "✓ {days}天前验证",
+    "verifiedStale": "⚠ {days}天前验证",
+    "mayBeOutdated": "⚠ 信息可能过期",
+    "unverified": "未验证"
+  },
+  "suggest": {
+    "suggestEdit": "建议修改",
+    "prompt": "哪些信息需要更正？（时间、教练、课程名等）",
+    "thanks": "谢谢！您的建议已提交。"
+  },
+  "locale": {
+    "switchLanguage": "语言",
+    "en": "English",
+    "zh": "中文",
+    "th": "ไทย"
+  }
+}

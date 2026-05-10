@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
-import { DAYS_OF_WEEK } from "@/lib/types";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 
 function getDateForDay(dayOfWeek: number): { dateStr: string; isToday: boolean } {
   const today = new Date();
@@ -16,11 +16,16 @@ function getDateForDay(dayOfWeek: number): { dateStr: string; isToday: boolean }
 }
 
 interface Props {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export default async function StudioPage({ params }: Props) {
   const { slug } = await params;
+  const t = await getTranslations("common");
+  const ts = await getTranslations("studio");
+  const td = await getTranslations("days");
+
+  const dayKeys = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
   const studio = await prisma.studio.findUnique({
     where: { slug },
     include: {
@@ -51,7 +56,7 @@ export default async function StudioPage({ params }: Props) {
             href="/"
             className="inline-flex items-center gap-1 text-amber-100 hover:text-white text-sm mb-3 transition-colors"
           >
-            ← Back to all classes
+            {t("back")}
           </Link>
           <h1 className="text-2xl font-bold tracking-tight">{studio.name}</h1>
           {studio.location && (
@@ -73,7 +78,7 @@ export default async function StudioPage({ params }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-sm text-stone-600 hover:text-amber-700 border border-stone-200 hover:border-amber-300 transition-colors"
             >
-              🌐 Website
+              🌐 {t("website")}
             </a>
           )}
           {studio.instagramUrl && (
@@ -83,7 +88,7 @@ export default async function StudioPage({ params }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-sm text-stone-600 hover:text-pink-600 border border-stone-200 hover:border-pink-300 transition-colors"
             >
-              📷 Instagram
+              📷 {t("instagram")}
             </a>
           )}
           {studio.facebookUrl && (
@@ -93,7 +98,7 @@ export default async function StudioPage({ params }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white rounded-full text-sm text-stone-600 hover:text-blue-600 border border-stone-200 hover:border-blue-300 transition-colors"
             >
-              📘 Facebook
+              📘 {t("facebook")}
             </a>
           )}
           {studio.phone && (
@@ -108,22 +113,23 @@ export default async function StudioPage({ params }: Props) {
 
         {/* Schedule */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-bold text-stone-800">Weekly Schedule</h2>
+          <h2 className="text-lg font-bold text-stone-800">{ts("weeklySchedule")}</h2>
           {studio.lastVerifiedAt ? (
             (() => {
               const days = Math.floor((Date.now() - new Date(studio.lastVerifiedAt).getTime()) / 86400000);
-              if (days <= 7) return <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">✓ Verified {days === 0 ? "today" : `${days}d ago`}</span>;
-              if (days <= 14) return <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">⚠ Verified {days}d ago</span>;
-              return <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">⚠ May be outdated</span>;
+              if (days === 0) return <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">{ts("verifiedToday")}</span>;
+              if (days <= 7) return <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">{ts("verifiedDaysAgo", { days })}</span>;
+              if (days <= 14) return <span className="text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full">{ts("verifiedStale", { days })}</span>;
+              return <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full">{ts("mayBeOutdated")}</span>;
             })()
           ) : (
-            <span className="text-xs bg-stone-100 text-stone-500 px-2 py-1 rounded-full">Unverified</span>
+            <span className="text-xs bg-stone-100 text-stone-500 px-2 py-1 rounded-full">{ts("unverified")}</span>
           )}
         </div>
 
         {studio.classes.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-stone-400">No classes listed yet</p>
+            <p className="text-stone-400">{ts("noClasses")}</p>
           </div>
         ) : (
           Object.entries(classesByDay).map(([day, dayClasses]) => {
@@ -132,10 +138,10 @@ export default async function StudioPage({ params }: Props) {
             return (
             <div key={day} className="mb-6">
               <h3 className="text-sm font-bold uppercase tracking-wider text-amber-700 mb-3 px-1 flex items-center gap-2">
-                {DAYS_OF_WEEK[dayNum]}, {dateStr}
+                {td(dayKeys[dayNum])}, {dateStr}
                 {isToday && (
                   <span className="text-[10px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full normal-case tracking-normal font-semibold">
-                    Today
+                    {t("today")}
                   </span>
                 )}
               </h3>
@@ -184,7 +190,7 @@ export default async function StudioPage({ params }: Props) {
       <footer className="border-t border-stone-200 bg-white">
         <div className="max-w-2xl mx-auto px-4 py-6 text-center">
           <Link href="/" className="text-sm text-amber-600 hover:text-amber-800 font-medium">
-            ← Back to all classes
+            {t("back")}
           </Link>
         </div>
       </footer>

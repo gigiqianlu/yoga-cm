@@ -1,0 +1,69 @@
+{
+  "common": {
+    "appName": "Yoga in Chiang Mai",
+    "loading": "Loading…",
+    "today": "Today",
+    "back": "Back to all classes",
+    "dropIn": "drop-in",
+    "with": "with {instructor}",
+    "min": "{minutes}min",
+    "website": "Website",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "home": {
+    "tagline": "Find your perfect class across {count} studios",
+    "findingClasses": "Finding classes...",
+    "noClassesTitle": "No classes found",
+    "noClassesDescription": "Try adjusting your filters",
+    "clearFilters": "Clear filters",
+    "classesFound": "{count, plural, one {# class} other {# classes}} found",
+    "footer": "Schedules may change — always confirm with the studio"
+  },
+  "filters": {
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "allStyles": "All styles",
+    "allStudios": "All studios",
+    "filtersActive": "{count, plural, one {# filter} other {# filters}} active",
+    "clearAll": "Clear all"
+  },
+  "days": {
+    "sun": "Sun",
+    "mon": "Mon",
+    "tue": "Tue",
+    "wed": "Wed",
+    "thu": "Thu",
+    "fri": "Fri",
+    "sat": "Sat",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday"
+  },
+  "studio": {
+    "weeklySchedule": "Weekly Schedule",
+    "noClasses": "No classes listed yet",
+    "verified": "Verified",
+    "verifiedToday": "✓ Verified today",
+    "verifiedDaysAgo": "✓ Verified {days}d ago",
+    "verifiedStale": "⚠ Verified {days}d ago",
+    "mayBeOutdated": "⚠ May be outdated",
+    "unverified": "Unverified"
+  },
+  "suggest": {
+    "suggestEdit": "suggest edit",
+    "prompt": "What needs correcting? (time, instructor, class name, etc.)",
+    "thanks": "Thanks! Your suggestion has been submitted."
+  },
+  "locale": {
+    "switchLanguage": "Language",
+    "en": "English",
+    "zh": "中文",
+    "th": "ไทย"
+  }
+}

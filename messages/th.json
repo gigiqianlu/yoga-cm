@@ -1,0 +1,69 @@
+{
+  "common": {
+    "appName": "โยคะเชียงใหม่",
+    "loading": "กำลังโหลด…",
+    "today": "วันนี้",
+    "back": "← กลับไปคลาสทั้งหมด",
+    "dropIn": "ดรอปอิน",
+    "with": "ครู {instructor}",
+    "min": "{minutes} นาที",
+    "website": "เว็บไซต์",
+    "instagram": "Instagram",
+    "facebook": "Facebook"
+  },
+  "home": {
+    "tagline": "ค้นหาคลาสที่ใช่จาก {count} สตูดิโอ",
+    "findingClasses": "กำลังค้นหาคลาส…",
+    "noClassesTitle": "ไม่พบคลาส",
+    "noClassesDescription": "ลองปรับตัวกรอง",
+    "clearFilters": "ล้างตัวกรอง",
+    "classesFound": "พบ {count} คลาส",
+    "footer": "ตารางอาจเปลี่ยนแปลง กรุณาติดต่อสตูดิโอเพื่อยืนยัน"
+  },
+  "filters": {
+    "morning": "เช้า",
+    "afternoon": "บ่าย",
+    "evening": "เย็น",
+    "allStyles": "ทุกสไตล์",
+    "allStudios": "ทุกสตูดิโอ",
+    "filtersActive": "ตัวกรอง {count} รายการ",
+    "clearAll": "ล้างทั้งหมด"
+  },
+  "days": {
+    "sun": "อา.",
+    "mon": "จ.",
+    "tue": "อ.",
+    "wed": "พ.",
+    "thu": "พฤ.",
+    "fri": "ศ.",
+    "sat": "ส.",
+    "sunday": "วันอาทิตย์",
+    "monday": "วันจันทร์",
+    "tuesday": "วันอังคาร",
+    "wednesday": "วันพุธ",
+    "thursday": "วันพฤหัสบดี",
+    "friday": "วันศุกร์",
+    "saturday": "วันเสาร์"
+  },
+  "studio": {
+    "weeklySchedule": "ตารางเรียนประจำสัปดาห์",
+    "noClasses": "ยังไม่มีคลาส",
+    "verified": "ตรวจสอบแล้ว",
+    "verifiedToday": "✓ ตรวจสอบวันนี้",
+    "verifiedDaysAgo": "✓ ตรวจสอบ {days} วันที่แล้ว",
+    "verifiedStale": "⚠ ตรวจสอบ {days} วันที่แล้ว",
+    "mayBeOutdated": "⚠ อาจไม่เป็นปัจจุบัน",
+    "unverified": "ยังไม่ตรวจสอบ"
+  },
+  "suggest": {
+    "suggestEdit": "แนะนำการแก้ไข",
+    "prompt": "มีข้อมูลอะไรที่ต้องแก้ไข? (เวลา, ครู, ชื่อคลาส ฯลฯ)",
+    "thanks": "ขอบคุณ! ข้อเสนอแนะของคุณได้รับแล้ว"
+  },
+  "locale": {
+    "switchLanguage": "ภาษา",
+    "en": "English",
+    "zh": "中文",
+    "th": "ไทย"
+  }
+}

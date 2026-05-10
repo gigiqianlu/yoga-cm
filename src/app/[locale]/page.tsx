@@ -1,9 +1,11 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { ClassWithStudio, Filters } from "@/lib/types";
 import { ClassGroup } from "@/components/ClassCard";
 import FilterBar from "@/components/FilterBar";
+import LocaleSwitcher from "@/components/LocaleSwitcher";
 
 interface Studio {
   id: string;
@@ -12,6 +14,9 @@ interface Studio {
 }
 
 export default function Home() {
+  const t = useTranslations("home");
+  const tc = useTranslations("common");
+
   const [classes, setClasses] = useState<ClassWithStudio[]>([]);
   const [studios, setStudios] = useState<Studio[]>([]);
   const [filters, setFilters] = useState<Filters>({});
@@ -29,7 +34,6 @@ export default function Home() {
     const data = await res.json();
     setClasses(data);
 
-    // Extract unique studios
     const studioMap = new Map<string, Studio>();
     data.forEach((c: ClassWithStudio) => {
       if (!studioMap.has(c.studio.id)) {
@@ -46,14 +50,12 @@ export default function Home() {
     fetchClasses();
   }, [fetchClasses]);
 
-  // Group classes by day
   const grouped = classes.reduce<Record<number, ClassWithStudio[]>>((acc, cls) => {
     if (!acc[cls.dayOfWeek]) acc[cls.dayOfWeek] = [];
     acc[cls.dayOfWeek].push(cls);
     return acc;
   }, {});
 
-  // Sort days starting from today
   const today = new Date().getDay();
   const sortedDays = Object.keys(grouped)
     .map(Number)
@@ -65,43 +67,45 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-stone-50">
-      {/* Header */}
       <header className="bg-gradient-to-br from-amber-600 via-amber-500 to-orange-400 text-white">
         <div className="max-w-2xl mx-auto px-4 py-8">
-          <div className="text-3xl mb-1">🧘</div>
-          <h1 className="text-2xl font-bold tracking-tight">Yoga in Chiang Mai</h1>
-          <p className="text-amber-100 text-sm mt-1">
-            Find your perfect class across {studios.length || "—"} studios
-          </p>
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="text-3xl mb-1">🧘</div>
+              <h1 className="text-2xl font-bold tracking-tight">{tc("appName")}</h1>
+              <p className="text-amber-100 text-sm mt-1">
+                {t("tagline", { count: studios.length || "—" })}
+              </p>
+            </div>
+            <LocaleSwitcher />
+          </div>
         </div>
       </header>
 
-      {/* Filters */}
       <FilterBar filters={filters} onChange={setFilters} studios={studios} />
 
-      {/* Class Feed */}
       <main className="max-w-2xl mx-auto px-4 py-6">
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20">
             <div className="w-8 h-8 border-3 border-amber-300 border-t-amber-600 rounded-full animate-spin" />
-            <p className="text-stone-400 mt-3 text-sm">Finding classes...</p>
+            <p className="text-stone-400 mt-3 text-sm">{t("findingClasses")}</p>
           </div>
         ) : classes.length === 0 ? (
           <div className="text-center py-20">
             <div className="text-4xl mb-3">🙏</div>
-            <h2 className="text-lg font-semibold text-stone-700">No classes found</h2>
-            <p className="text-stone-400 text-sm mt-1">Try adjusting your filters</p>
+            <h2 className="text-lg font-semibold text-stone-700">{t("noClassesTitle")}</h2>
+            <p className="text-stone-400 text-sm mt-1">{t("noClassesDescription")}</p>
             <button
               onClick={() => setFilters({})}
               className="mt-4 px-4 py-2 bg-amber-100 text-amber-800 rounded-xl text-sm font-medium hover:bg-amber-200 transition-colors"
             >
-              Clear filters
+              {t("clearFilters")}
             </button>
           </div>
         ) : (
           <>
             <p className="text-xs text-stone-400 mb-4">
-              {classes.length} class{classes.length !== 1 ? "es" : ""} found
+              {t("classesFound", { count: classes.length })}
             </p>
             {sortedDays.map((day) => (
               <ClassGroup key={day} day={day} classes={grouped[day]} />
@@ -110,15 +114,13 @@ export default function Home() {
         )}
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-stone-200 bg-white">
         <div className="max-w-2xl mx-auto px-4 py-6 text-center">
           <p className="text-xs text-stone-400">
-            🧘 Yoga in Chiang Mai · Schedules may change — always confirm with the studio
+            🧘 {tc("appName")} · {t("footer")}
           </p>
         </div>
       </footer>
     </div>
   );
 }
-

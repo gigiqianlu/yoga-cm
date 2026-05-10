@@ -1,7 +1,8 @@
 "use client";
 
-import { ClassWithStudio, DAYS_OF_WEEK } from "@/lib/types";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { ClassWithStudio } from "@/lib/types";
+import { Link } from "@/i18n/navigation";
 
 function getTimeEmoji(startTime: string): string {
   const hour = parseInt(startTime.split(":")[0]);
@@ -31,6 +32,8 @@ function getStyleColor(style: string): string {
 }
 
 export default function ClassCard({ cls }: { cls: ClassWithStudio }) {
+  const t = useTranslations("common");
+  const ts = useTranslations("suggest");
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-4 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between gap-3">
@@ -42,14 +45,14 @@ export default function ClassCard({ cls }: { cls: ClassWithStudio }) {
               {cls.endTime && <span className="text-stone-400"> – {cls.endTime}</span>}
             </span>
             {cls.durationMin && (
-              <span className="text-xs text-stone-400">{cls.durationMin}min</span>
+              <span className="text-xs text-stone-400">{t("min", { minutes: cls.durationMin })}</span>
             )}
           </div>
 
           <h3 className="font-bold text-stone-900 text-lg leading-tight">{cls.title}</h3>
 
           {cls.instructor && (
-            <p className="text-stone-500 text-sm mt-0.5">with {cls.instructor}</p>
+            <p className="text-stone-500 text-sm mt-0.5">{t("with", { instructor: cls.instructor })}</p>
           )}
 
           <div className="flex items-center gap-2 mt-2 flex-wrap">
@@ -67,18 +70,18 @@ export default function ClassCard({ cls }: { cls: ClassWithStudio }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                const data = prompt("What needs correcting? (time, instructor, class name, etc.)");
+                const data = prompt(ts("prompt"));
                 if (data) {
                   fetch("/api/suggestions", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ type: "correction", targetClassId: cls.id, targetStudioId: cls.studio.id, data }),
-                  }).then(() => alert("Thanks! Your suggestion has been submitted."));
+                  }).then(() => alert(ts("thanks")));
                 }
               }}
               className="text-[10px] text-stone-300 hover:text-amber-600 transition-colors"
             >
-              ✏️ suggest edit
+              ✏️ {ts("suggestEdit")}
             </button>
           </div>
         </div>
@@ -86,7 +89,7 @@ export default function ClassCard({ cls }: { cls: ClassWithStudio }) {
         {cls.dropInPriceTHB && (
           <div className="text-right shrink-0">
             <div className="text-lg font-bold text-amber-700">฿{cls.dropInPriceTHB}</div>
-            <div className="text-[10px] text-stone-400 uppercase tracking-wider">drop-in</div>
+            <div className="text-[10px] text-stone-400 uppercase tracking-wider">{t("dropIn")}</div>
           </div>
         )}
       </div>
@@ -95,7 +98,11 @@ export default function ClassCard({ cls }: { cls: ClassWithStudio }) {
 }
 
 export function ClassGroup({ day, classes }: { day: number; classes: ClassWithStudio[] }) {
-  // Calculate the actual date for this day of week (starting from today)
+  const t = useTranslations("common");
+  const td = useTranslations("days");
+
+  const dayKeys = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"] as const;
+
   const today = new Date();
   const todayDay = today.getDay();
   const diff = (day - todayDay + 7) % 7;
@@ -107,10 +114,10 @@ export function ClassGroup({ day, classes }: { day: number; classes: ClassWithSt
   return (
     <div className="mb-8">
       <h2 className="text-sm font-bold uppercase tracking-wider text-amber-700 mb-3 px-1 flex items-center gap-2">
-        {DAYS_OF_WEEK[day]}, {dateStr}
+        {td(dayKeys[day])}, {dateStr}
         {isToday && (
           <span className="text-[10px] bg-amber-600 text-white px-1.5 py-0.5 rounded-full normal-case tracking-normal font-semibold">
-            Today
+            {t("today")}
           </span>
         )}
       </h2>
