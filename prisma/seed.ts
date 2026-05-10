@@ -103,6 +103,10 @@ const sampleClasses = [
   { studioSlug: "wild-rose", title: "All-Levels Vinyasa", style: "Vinyasa", instructor: "Kru May", dayOfWeek: 6, startTime: "12:30", endTime: "14:00", durationMin: 90, dropInPriceTHB: 350 },
   // Sun
   { studioSlug: "wild-rose", title: "Dynamic Vinyasa Flow (Intermediate)", style: "Vinyasa", instructor: "Kru Annie", dayOfWeek: 0, startTime: "10:00", endTime: "11:30", durationMin: 90, dropInPriceTHB: 350 },
+  { studioSlug: "wild-rose", title: "All-Levels Vinyasa", style: "Vinyasa", instructor: "Kru May", dayOfWeek: 0, startTime: "12:30", endTime: "14:00", durationMin: 90, dropInPriceTHB: 350 },
+  { studioSlug: "wild-rose", title: "Gentle Hatha & Sound Bath", style: "Hatha", instructor: "Kru Ta", dayOfWeek: 0, startTime: "14:00", endTime: "15:30", durationMin: 90, dropInPriceTHB: 400 },
+  { studioSlug: "wild-rose", title: "Stretch & Flow", style: "Flow", instructor: "Kru May", dayOfWeek: 0, startTime: "16:30", endTime: "18:00", durationMin: 90, dropInPriceTHB: 350 },
+  { studioSlug: "wild-rose", title: "Hatha Vinyasa (Beginner-friendly)", style: "Hatha", instructor: "Kru Anisara", dayOfWeek: 0, startTime: "17:00", endTime: "18:30", durationMin: 90, dropInPriceTHB: 350 },
 
   // ── Yoga Ananda (Nimman) ──
   // Mon
@@ -163,6 +167,8 @@ const sampleClasses = [
   { studioSlug: "freedom-yoga", title: "Morning Vinyasa", style: "Vinyasa", instructor: null, dayOfWeek: 5, startTime: "08:00", endTime: "09:15", durationMin: 75, dropInPriceTHB: 350 },
   { studioSlug: "freedom-yoga", title: "Restorative Yoga", style: "Restorative", instructor: null, dayOfWeek: 5, startTime: "18:00", endTime: "19:15", durationMin: 75, dropInPriceTHB: 350 },
   { studioSlug: "freedom-yoga", title: "Weekend Flow", style: "Vinyasa", instructor: null, dayOfWeek: 6, startTime: "09:00", endTime: "10:15", durationMin: 75, dropInPriceTHB: 350 },
+  // Sun
+  { studioSlug: "freedom-yoga", title: "Weekend Flow", style: "Vinyasa", instructor: null, dayOfWeek: 0, startTime: "09:00", endTime: "10:15", durationMin: 75, dropInPriceTHB: 350 },
 
   // ── Chiangmai Yoga Studio ──
   { studioSlug: "cm-yoga-studio", title: "Hatha Yoga", style: "Hatha", instructor: null, dayOfWeek: 1, startTime: "09:00", endTime: "10:15", durationMin: 75, dropInPriceTHB: 350 },
@@ -176,6 +182,8 @@ const sampleClasses = [
   { studioSlug: "cm-yoga-studio", title: "Hatha Yoga", style: "Hatha", instructor: null, dayOfWeek: 5, startTime: "09:00", endTime: "10:15", durationMin: 75, dropInPriceTHB: 350 },
   { studioSlug: "cm-yoga-studio", title: "Stretching & Flexibility", style: "Stretch", instructor: null, dayOfWeek: 5, startTime: "17:00", endTime: "18:15", durationMin: 75, dropInPriceTHB: 350 },
   { studioSlug: "cm-yoga-studio", title: "Hatha Flow", style: "Hatha", instructor: null, dayOfWeek: 6, startTime: "09:00", endTime: "10:15", durationMin: 75, dropInPriceTHB: 350 },
+  // Sun
+  { studioSlug: "cm-yoga-studio", title: "Hatha Yoga", style: "Hatha", instructor: null, dayOfWeek: 0, startTime: "09:00", endTime: "10:15", durationMin: 75, dropInPriceTHB: 350 },
 ];
 
 async function main() {
